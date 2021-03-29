@@ -1,88 +1,83 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const Manager = require('./lib/Manager')
 
-const generateProfile = require('./src/page-template');
-const newTeamMembers = [];
+const generateTeam = require('./src/page-template');
+const { inherits } = require('util');
+const team = [];
 
-createManager() {
+function createManager() {
     // To Do: 
     // Create prompt for manager
-    // Create a variable for new manager class
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your managers name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Please provide a your employee ID."
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Please provide your email address."
+        },
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "Please provide your office number."
+        },
+    ])
+        // Create a variable for new manager class
+        .then((answers) => {
+            const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+            team.push(manager);
+            console.log(answers)
+            newEmployee();
+        })
     // push new manager class into newTeamMembers array (newTeamMembers.push(newManager))
     // call function 
 }
 
-createOtherEmployee(){
+function newEmployee() {
+    const addEmployeePrompt = [{
+    
+        type: "list",
+        name: "employeeChoice",
+        message: "What type of employee is this?",
+        choices: ['Intern', 'Engineer', 'Finish Team']
+    
+    }]
+    inquirer.prompt(addEmployeePrompt)
+        .then(answers => {
+            switch (answers.employeeChoice) {
+                case 'Finish Team': 
+                    writeFile('output/index.html', team)
+            }
+        })
+}
+
+function init() {
+    createManager();
+    
+}
+init();
+
+function createEngineer() {
     // prompt for options on line 32 of readme
     // switch case based on selected choice run the correct function
 }
 
-inquirer
-  .prompt([
-    {
-        type: "input",
-        name: "title",
-        message: "What is your project title?"
-    },
 
-    {
-        type: "input",
-        name: "description",
-        message: "Please provide a  short description of your project."
-    },
-    {
-        type: "input",
-        name: "installation",
-        message: "Please provide any installation instructions if applicable."
-    },
-    {
-        type: "input",
-        name: "usage",
-        message: "Please provide the project usage."
-    },
-    {
-        type: 'checkbox',
-        name: 'license',
-        message: 'Choose a license',
-        default: 'MIT',
-        choices: [
-            'Apache 2.0',
-            'MIT',
-            'GNU GPL v3.0',
-            'ISC'
-        ]
-    },
-    {
-        type: "input",
-        name: "contributors",
-        message: "Please provide contributing parties."
-    },
-    {
-        type: "input",
-        name: "test",
-        message: "Please provide any project test instructions if applicable."
-    },
-    {
-        type: "input",
-        name: "repo",
-        message: "What is your repository link?"
-    },
-    {
-        type: "input",
-        name: "githubInfo",
-        message: "What is your github user name?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is your email?"
-    },
-   
-  ])
+// function createTeam
+function writeFile(fileName, data) {
 
-  .then((data) => {
-
-    fs.writeFile("README.md", generateREADME(data), (err) =>
-      err ? console.log(err) : console.log('New README file created!')
+    fs.writeFile(fileName, generateTeam(data), (err) =>
+        err ? console.log(err) : console.log('New team created!')
     );
-  });
+
+
+}
