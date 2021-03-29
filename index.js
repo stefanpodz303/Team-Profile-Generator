@@ -47,7 +47,7 @@ function newIntern(){
         {
             type: "input",
             name: "name",
-            message: "What is your interns name?"
+            message: "What is your intern's name?"
         },
         {
             type: "input",
@@ -79,7 +79,7 @@ function newEngineer(){
         {
             type: "input",
             name: "name",
-            message: "What is your interns name?"
+            message: "What is your engineer's name?"
         },
         {
             type: "input",
@@ -121,8 +121,10 @@ function newEmployee() {
                     writeFile('output/index.html', team)
                     break;
                 case 'Intern':
+                    newIntern();
                     break;
                 case 'Engineer':
+                    newEngineer();
                     break;
                 
                     
