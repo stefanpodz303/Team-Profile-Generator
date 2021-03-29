@@ -1,14 +1,14 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Manager = require('./lib/Manager')
-
+const Manager = require('./lib/Manager');
+const Intern = require('./lib/Intern')
+const Engineer = require('./lib/Engineer')
 const generateTeam = require('./src/page-template');
 const { inherits } = require('util');
 const team = [];
 
 function createManager() {
-    // To Do: 
-    // Create prompt for manager
+    
     inquirer.prompt([
         {
             type: "input",
@@ -18,7 +18,7 @@ function createManager() {
         {
             type: "input",
             name: "id",
-            message: "Please provide a your employee ID."
+            message: "Please provide an employee ID number."
         },
         {
             type: "input",
@@ -31,15 +31,78 @@ function createManager() {
             message: "Please provide your office number."
         },
     ])
-        // Create a variable for new manager class
+    
         .then((answers) => {
             const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
             team.push(manager);
-            console.log(answers)
+            console.log(answers);
             newEmployee();
         })
-    // push new manager class into newTeamMembers array (newTeamMembers.push(newManager))
-    // call function 
+   
+}
+
+function newIntern(){
+
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your interns name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Please provide an employee ID number."
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Please provide your email address."
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "Please provide the university you attend."
+        },
+    ])
+        .then((answers) => {
+            const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+            team.push(intern);
+            console.log(answers);
+            newEmployee();
+        })
+}
+
+function newEngineer(){
+   
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your interns name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Please provide an employee ID number."
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Please provide your email address."
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "Please provide your GitHub information."
+        },
+    ])
+        .then((answers) => {
+            const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+            team.push(engineer);
+            console.log(answers);
+            newEmployee();
+        })
 }
 
 function newEmployee() {
@@ -56,6 +119,13 @@ function newEmployee() {
             switch (answers.employeeChoice) {
                 case 'Finish Team': 
                     writeFile('output/index.html', team)
+                    break;
+                case 'Intern':
+                    break;
+                case 'Engineer':
+                    break;
+                
+                    
             }
         })
 }
@@ -66,13 +136,6 @@ function init() {
 }
 init();
 
-function createEngineer() {
-    // prompt for options on line 32 of readme
-    // switch case based on selected choice run the correct function
-}
-
-
-// function createTeam
 function writeFile(fileName, data) {
 
     fs.writeFile(fileName, generateTeam(data), (err) =>
