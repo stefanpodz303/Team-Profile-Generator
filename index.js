@@ -8,12 +8,12 @@ const { inherits } = require('util');
 const team = [];
 
 function createManager() {
-    
+
     inquirer.prompt([
         {
             type: "input",
             name: "name",
-            message: "What is your managers name?"
+            message: "What is your manager's name?"
         },
         {
             type: "input",
@@ -31,17 +31,17 @@ function createManager() {
             message: "Please provide your office number."
         },
     ])
-    
+
         .then((answers) => {
             const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
             team.push(manager);
             console.log(answers);
             newEmployee();
         })
-   
+
 }
 
-function newIntern(){
+function newIntern() {
 
     inquirer.prompt([
         {
@@ -73,8 +73,8 @@ function newIntern(){
         })
 }
 
-function newEngineer(){
-   
+function newEngineer() {
+
     inquirer.prompt([
         {
             type: "input",
@@ -107,17 +107,17 @@ function newEngineer(){
 
 function newEmployee() {
     const addEmployeePrompt = [{
-    
+
         type: "list",
         name: "employeeChoice",
         message: "What type of employee is this?",
         choices: ['Intern', 'Engineer', 'Finish Team']
-    
+
     }]
     inquirer.prompt(addEmployeePrompt)
         .then(answers => {
             switch (answers.employeeChoice) {
-                case 'Finish Team': 
+                case 'Finish Team':
                     writeFile('output/index.html', team)
                     break;
                 case 'Intern':
@@ -126,15 +126,15 @@ function newEmployee() {
                 case 'Engineer':
                     newEngineer();
                     break;
-                
-                    
+
+
             }
         })
 }
 
 function init() {
     createManager();
-    
+
 }
 init();
 

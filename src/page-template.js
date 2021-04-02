@@ -60,15 +60,18 @@ const generateTeam = team => {
 
     const html = [];
 
+    // const team = [Manager, Engineer1, Engineer2, Intern1, Intern2]
+
     html.push(team
         .filter(employee => employee.getRole() === "Manager")
-        .map(manager => generateManager(manager))
-    );
+        .map(manager => generateManager(manager)));
+
     html.push(team
         .filter(employee => employee.getRole() === "Engineer")
         .map(engineer => generateEngineer(engineer))
         .join("")
     );
+
     html.push(team
         .filter(employee => employee.getRole() === "Intern")
         .map(intern => generateIntern(intern))
