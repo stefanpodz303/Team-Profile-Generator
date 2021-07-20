@@ -21,7 +21,7 @@ https://drive.google.com/file/d/16SxYYWvjknOLUtnFqZw4Da7UuqU-XJAH/view?usp=shari
 Allows the user to easily create a professional work team profile with relevant employee information from the command terminal. 
 
 ## Installation
-In the terminal enter the command ’node index.js’ (without the quotes) and follow the prompts.
+In the terminal enter the command ’node index.js’ and follow the prompts.
 
 ## Usage
 This application makes it faster and easier for a developer to generate a work team profile webpage.
